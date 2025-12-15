@@ -80,6 +80,26 @@ def vigenere_encrypt(text, key):
             result.append(char)
     return ''.join(result)
 
+def vigenere_decrypt(text, key):
+    """
+    Decrypt a Vigenère cipher with the given key.
+    """
+    key = key.upper()
+    key_len = len(key)
+    result = []
+    key_index = 0
+    for char in text:
+        if char.isalpha():
+            shift = ord(key[key_index % key_len]) - 65
+            if char.isupper():
+                result.append(chr((ord(char) - shift - 65) % 26 + 65))
+            else:
+                result.append(chr((ord(char) - shift - 97) % 26 + 97))
+            key_index += 1
+        else:
+            result.append(char)
+    return ''.join(result)
+
 def transposition_decrypt(text, num_columns):
     """
     Decrypt a columnar transposition cipher with the given number of columns.
