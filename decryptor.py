@@ -194,7 +194,15 @@ def homophonic_decrypt(text, mapping_str):
 
 def main():
     print("Welcome to HCC Systems Message Decryptor!")
-    print("Supported ciphers: Caesar, Atbash, Simple Substitution, Vigenère, Transposition, Playfair, Rail Fence, Homophonic")
+    print("Supported ciphers:")
+    print("- Caesar")
+    print("- Atbash")
+    print("- Simple Substitution")
+    print("- Vigenère")
+    print("- Transposition")
+    print("- Playfair")
+    print("- Rail Fence")
+    print("- Homophonic")
     print("Enter 'quit' to exit.\n")
 
     while True:
