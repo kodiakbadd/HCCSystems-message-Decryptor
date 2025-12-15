@@ -1,6 +1,6 @@
-# HCC Systems Message Decryptor
+# HCC Systems Message Encryptor/Decryptor
 
-A Python application to help decrypt simple cipher puzzles posted on HCC Systems' business Facebook page.
+A Python application to encrypt or decrypt simple cipher puzzles posted on HCC Systems' business Facebook page.
 
 ## Supported Ciphers
 
@@ -17,38 +17,42 @@ A Python application to help decrypt simple cipher puzzles posted on HCC Systems
 
 1. Clone or download this repository.
 2. Ensure Python 3.6+ is installed.
-3. Run the decryptor:
+3. Run the encryptor/decryptor:
 
    ```bash
    python decryptor.py
    ```
 
-4. Follow the prompts to select a cipher, enter parameters, and input the encrypted message.
+4. Follow the prompts to select encrypt/decrypt, cipher type, enter parameters, and input the message.
 
 ## Examples
 
-### Caesar Cipher
+### Caesar Cipher (Encrypt)
 ```
+Enter mode: encrypt
 Enter cipher type: caesar
-Enter encrypted message: Khoor Zruog!
-Enter shift value: 3
-Decrypted message: Hello World!
+Enter message: Test message one
+Enter shift value: 4
+Encrypted message: Xiwx qiwwe ki sri
+```
+
+### Caesar Cipher (Decrypt)
+```
+Enter mode: decrypt
+Enter cipher type: caesar
+Enter message: Xiwx qiwwe ki sri
+Enter shift value: 4
+Decrypted message: Test message one
 ```
 
 ### Atbash Cipher
 ```
+Enter mode: encrypt
 Enter cipher type: atbash
-Enter encrypted message: Svhg zl gsv gsviv
-Decrypted message: Hello or the there
+Enter message: Hello World
+Encrypted message: Svool Dliow
 ```
-
-### Simple Substitution
-```
-Enter cipher type: simple substitution
-Enter encrypted message: Uijt jt b tfvsf
-Enter mapping (26 letters for A-Z plaintext order): ZYXWVUTSRQPONMLKJIHGFEDCBA
-Decrypted message: This is a test
-```
+(Note: Atbash is symmetric, so encrypt/decrypt are the same)
 
 ## Contributing
 

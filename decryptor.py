@@ -1,23 +1,26 @@
 """
-HCC Systems Message Decryptor
+HCC Systems Message Encryptor/Decryptor
 
-A Python application to decrypt simple ciphers used in puzzles.
+A Python application to encrypt or decrypt simple ciphers used in puzzles.
 Supports Caesar, Atbash, Simple Substitution, Vigenère, Transposition,
 Playfair, Rail Fence, and Homophonic Substitution ciphers.
 """
 
 import string
 
-def caesar_decrypt(text, shift):
+def caesar_cipher(text, shift, encrypt=True):
     """
-    Decrypt a Caesar cipher with the given shift.
+    Encrypt or decrypt a Caesar cipher with the given shift.
+    Set encrypt=True for encryption, False for decryption.
     """
+    if not encrypt:
+        shift = -shift
     result = []
     for char in text:
         if char.isupper():
-            result.append(chr((ord(char) - shift - 65) % 26 + 65))
+            result.append(chr((ord(char) - 65 + shift) % 26 + 65))
         elif char.islower():
-            result.append(chr((ord(char) - shift - 97) % 26 + 97))
+            result.append(chr((ord(char) - 97 + shift) % 26 + 97))
         else:
             result.append(char)
     return ''.join(result)
@@ -193,7 +196,7 @@ def homophonic_decrypt(text, mapping_str):
     return simple_substitution_decrypt(text, mapping_str)
 
 def main():
-    print("Welcome to HCC Systems Message Decryptor!")
+    print("Welcome to HCC Systems Message Encryptor/Decryptor!")
     print("Supported ciphers:")
     print("- Caesar")
     print("- Atbash")
@@ -206,41 +209,74 @@ def main():
     print("Enter 'quit' to exit.\n")
 
     while True:
+        mode = input("Encrypt or Decrypt? ").strip().lower()
+        if mode == 'quit':
+            break
+        elif mode not in ['encrypt', 'decrypt']:
+            print("Please enter 'encrypt' or 'decrypt'.\n")
+            continue
+        encrypt = (mode == 'encrypt')
+        
         cipher = input("Enter cipher type: ").strip().lower()
         if cipher == 'quit':
             break
-        message = input("Enter encrypted message: ")
+        message = input("Enter message: ")
         try:
             if cipher == 'caesar':
                 shift = int(input("Enter shift value: "))
-                decrypted = caesar_decrypt(message, shift)
+                result = caesar_cipher(message, shift, encrypt)
             elif cipher == 'atbash':
-                decrypted = atbash_decrypt(message)
+                result = atbash_decrypt(message)  # Same for encrypt/decrypt
             elif cipher == 'simple substitution' or cipher == 'simple':
                 mapping = input("Enter mapping (26 letters for A-Z plaintext order): ").strip()
-                decrypted = simple_substitution_decrypt(message, mapping)
+                if encrypt:
+                    print("Encryption for Simple Substitution not yet implemented.\n")
+                    continue
+                else:
+                    result = simple_substitution_decrypt(message, mapping)
             elif cipher == 'vigenere':
                 key = input("Enter key: ").strip()
                 if not key.isalpha():
                     print("Key must contain only letters.\n")
                     continue
-                decrypted = vigenere_decrypt(message, key)
+                if encrypt:
+                    print("Encryption for Vigenère not yet implemented.\n")
+                    continue
+                else:
+                    result = vigenere_decrypt(message, key)
             elif cipher == 'transposition':
                 num_columns = input("Enter number of columns: ").strip()
-                decrypted = transposition_decrypt(message, num_columns)
+                if encrypt:
+                    print("Encryption for Transposition not yet implemented.\n")
+                    continue
+                else:
+                    result = transposition_decrypt(message, num_columns)
             elif cipher == 'playfair':
                 key = input("Enter key: ").strip()
-                decrypted = playfair_decrypt(message, key)
+                if encrypt:
+                    print("Encryption for Playfair not yet implemented.\n")
+                    continue
+                else:
+                    result = playfair_decrypt(message, key)
             elif cipher == 'rail fence' or cipher == 'rail':
                 num_rails = input("Enter number of rails: ").strip()
-                decrypted = rail_fence_decrypt(message, num_rails)
+                if encrypt:
+                    print("Encryption for Rail Fence not yet implemented.\n")
+                    continue
+                else:
+                    result = rail_fence_decrypt(message, num_rails)
             elif cipher == 'homophonic':
                 mapping = input("Enter mapping (26 letters for A-Z plaintext order): ").strip()
-                decrypted = homophonic_decrypt(message, mapping)
+                if encrypt:
+                    print("Encryption for Homophonic not yet implemented.\n")
+                    continue
+                else:
+                    result = homophonic_decrypt(message, mapping)
             else:
                 print("Unsupported cipher. Try again.\n")
                 continue
-            print(f"Decrypted message: {decrypted}\n")
+            action = "Encrypted" if encrypt else "Decrypted"
+            print(f"{action} message: {result}\n")
         except Exception as e:
             print(f"Error: {e}\n")
 
