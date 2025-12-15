@@ -60,9 +60,9 @@ def simple_substitution_decrypt(text, mapping_str):
             result.append(char)
     return ''.join(result)
 
-def vigenere_decrypt(text, key):
+def vigenere_encrypt(text, key):
     """
-    Decrypt a Vigenère cipher with the given key.
+    Encrypt a Vigenère cipher with the given key.
     """
     key = key.upper()
     key_len = len(key)
@@ -72,9 +72,9 @@ def vigenere_decrypt(text, key):
         if char.isalpha():
             shift = ord(key[key_index % key_len]) - 65
             if char.isupper():
-                result.append(chr((ord(char) - shift - 65) % 26 + 65))
+                result.append(chr((ord(char) - 65 + shift) % 26 + 65))
             else:
-                result.append(chr((ord(char) - shift - 97) % 26 + 97))
+                result.append(chr((ord(char) - 97 + shift) % 26 + 97))
             key_index += 1
         else:
             result.append(char)
@@ -198,15 +198,26 @@ def homophonic_decrypt(text, mapping_str):
 def main():
     print("Welcome to HCC Systems Message Encryptor/Decryptor!")
     print("Supported ciphers:")
-    print("- Caesar")
-    print("- Atbash")
-    print("- Simple Substitution")
-    print("- Vigenère")
-    print("- Transposition")
-    print("- Playfair")
-    print("- Rail Fence")
-    print("- Homophonic")
+    print("- C: Caesar")
+    print("- A: Atbash")
+    print("- S: Simple Substitution")
+    print("- V: Vigenère")
+    print("- T: Transposition")
+    print("- P: Playfair")
+    print("- R: Rail Fence")
+    print("- H: Homophonic")
     print("Enter 'quit' to exit.\n")
+
+    cipher_map = {
+        'c': 'caesar',
+        'a': 'atbash',
+        's': 'simple substitution',
+        'v': 'vigenere',
+        't': 'transposition',
+        'p': 'playfair',
+        'r': 'rail fence',
+        'h': 'homophonic'
+    }
 
     while True:
         mode = input("Encrypt or Decrypt? ").strip().lower()
@@ -217,9 +228,11 @@ def main():
             continue
         encrypt = (mode == 'encrypt')
         
-        cipher = input("Enter cipher type: ").strip().lower()
+        cipher = input("Enter cipher type (first letter or full name): ").strip().lower()
         if cipher == 'quit':
             break
+        if len(cipher) == 1:
+            cipher = cipher_map.get(cipher, cipher)
         message = input("Enter message: ")
         try:
             if cipher == 'caesar':
@@ -240,8 +253,7 @@ def main():
                     print("Key must contain only letters.\n")
                     continue
                 if encrypt:
-                    print("Encryption for Vigenère not yet implemented.\n")
-                    continue
+                    result = vigenere_encrypt(message, key)
                 else:
                     result = vigenere_decrypt(message, key)
             elif cipher == 'transposition':
