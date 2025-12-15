@@ -23,14 +23,14 @@ A Python application to encrypt or decrypt simple cipher puzzles posted on HCC S
    python decryptor.py
    ```
 
-4. Follow the prompts to select encrypt/decrypt, cipher type, enter parameters, and input the message.
+4. Follow the prompts to select encrypt/decrypt, cipher type (first letter or full name), enter parameters, and input the message.
 
 ## Examples
 
 ### Caesar Cipher (Encrypt)
 ```
 Enter mode: encrypt
-Enter cipher type: caesar
+Enter cipher type (first letter or full name): c
 Enter message: Test message one
 Enter shift value: 4
 Encrypted message: Xiwx qiwwe ki sri
